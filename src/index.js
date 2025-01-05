@@ -10,8 +10,21 @@ import connectDB from "./db/indexdb.js";
 dotenv.config({
     path: "./.env"
 });
+const app = express();
 
-connectDB();
+connectDB()
+    .then(() => {
+        app.on("error", (error) => { console.log("Error connecting to database from index.js") })
+
+        app.listen(process.env.PORT || 3000, () => {
+            console.log(`Server is running on port ${process.env.PORT || 8000}`)
+
+        })
+    })
+    .catch((err) => {
+        console.error("Error connecting to database from index.js", err);
+
+    })
 
 
 
