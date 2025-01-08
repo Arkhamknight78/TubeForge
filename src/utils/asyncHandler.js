@@ -15,14 +15,14 @@
 //promises
 
 const asyncHandler = (requestHandler)=>{
-    (req, res, next)=>{
+    return  (req, res, next)=>{
         Promise.resolve(requestHandler(req, res, next)).catch((err)=>{
             next(err)
         })
     }
 }
 
-export default asyncHandler;
+export {asyncHandler};
 
 // const asyncHandler =()=>{}
 // const asyncHandler =(func)=>{()=>{}}
