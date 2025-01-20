@@ -19,7 +19,7 @@ const userSchema = new Schema({
         trim: true,
         
     },
-    fullname:{
+    fullName:{
         type: String,
         required: true,
      
@@ -33,7 +33,7 @@ const userSchema = new Schema({
     },
     coverImage:{
         type: String, //cloudinary Url
-        required: true,
+        required: false,
     },
     watchHistory:[
         {
@@ -70,8 +70,8 @@ userSchema.methods.generateAccessToken = function(){
         email: this.email,
         fullname: this.fullname,
     }, 
-    process.env. ACCESS_TOKEN_SECRET, { 
-        expiresIn:  ACCESS_TOKEN_EXPIRY });
+    process.env. ACCESS_TOKEN_SECRET, 
+    { expiresIn: process.env.ACCESS_TOKEN_EXPIRY });
 }
 userSchema.methods.generateRefreshToken = function(){
     return jwt.sign({
