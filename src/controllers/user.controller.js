@@ -3,7 +3,7 @@ import { ApiError } from "../utils/ApiErrors.js";
 import { User } from "../models/user.model.js";
 import { uploadFilePath } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
-import { jwt } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { upload } from "../middlewares/multer.middleware.js";
 
 
@@ -75,11 +75,15 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 
     // 5. Check for images and check for avatars
-    const avatarLocalPath = req.files?.avatar[0]?.path;
+    // const avatarLocalPath = req.files?.avatar[0]?.path;  
     // const coverImageLocalPath = req.files?.coverImage[0]?.path;// GOING UNDEFINED INCASE OF NO COVERIMAGE UPLOAD
     //ALTERNATE LOGICS -
     //                 |
     //                 v
+    let avatarLocalPath;
+    if (req.files && Array.isArray(req.files.avatar) && req.files.avatar.length > 0) {
+        avatarLocalPath = await req.files.avatar[0].path
+    }
     let coverImageLocalPath;
     if (req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0) {
         coverImageLocalPath = await req.files.coverImage[0].path
@@ -188,7 +192,7 @@ const loginUser = asyncHandler(async (req, res) => {
 const logOut = asyncHandler((req, res) => {
     User.findByIdAndUpdate(req.user._id,
         {
-            $set: { refreshToken: undefined }
+            $unset: { refreshToken: 1}
         },
         {
             new: true
@@ -263,6 +267,11 @@ const changeCurrPassword = asyncHandler(async (req, res) => {
     if (isPassCorr) {
         user.password = NewPass;
         await user.save({ validateBeforeSave: false })
+        //what does validateBeforeSave do?
+        //it is used to skip the validation of the schema before saving the document
+        //it is used when we want to update only a few fields of the document and not all the fields
+        //it is used to skip the validation of the schema before saving the document
+
     }
     else {
         throw new ApiError(400, "Old Password is incorrect")
@@ -425,7 +434,7 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
         }
     ])
 
-    if (!channel?.length{
+    if (!channel?.length()){
         throw new ApiError(404, "channel not found")
     }
 
