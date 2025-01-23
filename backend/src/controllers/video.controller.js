@@ -42,56 +42,51 @@ const getAllVideos = asyncHandler(async (req, res) => {
 
   pipeline.push(matchStage);
 
-  if(sortBy && sortType){
-    const sortStage ={
-        $sort:{
-            [sortBy]: sortType === "asc" ?1:-1
-        }
-    }
+  if (sortBy && sortType) {
+    const sortStage = {
+      $sort: {
+        [sortBy]: sortType === "asc" ? 1 : -1,
+      },
+    };
 
-    pipeline.push(sortStage)
+    pipeline.push(sortStage);
+  } else {
+    pipeline.push({ $sort: { createdAt: -1 } });
   }
-  else{
-    pipeline.push({$sort: {createdAt: -1}})
-  }
 
-  const lookupStage = 
-  {
-    
-    $lookup:{
-        from: "users",
-        localField: "owner",
-        foreignField: "_id",
-        as :"owner",
-        pipeline:[
-            {
-                $project:{
-                    username: 1,
-                    "avatar":1
-                }
-            }
-        ]
-
+  const lookupStage = {
+    $lookup: {
+      from: "users",
+      localField: "owner",
+      foreignField: "_id",
+      as: "owner",
+      pipeline: [
+        {
+          $project: {
+            username: 1,
+            avatar: 1,
+          },
+        },
+      ],
     },
+  };
 
-    {
-        $unwind: "$owner"
-    }
+  const unwindStage = {
+    $unwind: "$owner",
+  };
 
+  pipeline.push(lookupStage, unwindStage);
 
+  const videoAggregate = Video.aggregate(pipeline);
 
-    const videoAggregate= Video.aggregate(pipeline);
+  const videos = await Video.aggregatePaginate(videoAggregate, options);
 
-    const videos = await Video.aggregatePaginate(videoAggregate, options);
-
-    return res
+  return res
     .status(200)
     .json(new ApiResponse(200, "Videos Retrieved Successfully", videos));
-  
 
   //TODO: get all videos based on query, sort, pagination
 });
-
 
 const publishAVideo = asyncHandler(async (req, res) => {
   const { title, description } = req.body;
@@ -183,6 +178,22 @@ const deleteVideo = asyncHandler(async (req, res) => {
 
 const togglePublishStatus = asyncHandler(async (req, res) => {
   const { videoId } = req.params;
+
+  const video = await Video.findById(videoId);
+
+  if(!video){
+    throw new ApiError(404, "Video Not Found")
+  }
+
+  video.isPublished= !video.isPublished;
+  await video.save({
+    isValidBeforeSave: false
+  })
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, "Publish Status Toggled Successfully", video));
+
 });
 
 export {
