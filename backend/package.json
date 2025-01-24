@@ -14,8 +14,11 @@
   "author": "Vinayak",
   "license": "ISC",
   "devDependencies": {
+    "autoprefixer": "^10.4.20",
     "nodemon": "^3.1.9",
-    "prettier": "^3.4.2"
+    "postcss": "^8.5.1",
+    "prettier": "^3.4.2",
+    "tailwindcss": "^4.0.0"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
