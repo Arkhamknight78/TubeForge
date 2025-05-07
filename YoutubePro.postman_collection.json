@@ -1,0 +1,314 @@
+{
+	"info": {
+		"_postman_id": "0ff8437f-3994-4797-b464-38f9223fd5b1",
+		"name": "YoutubePro",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27912056"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "te",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "er",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "er@gma.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12232",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/Vinayak/Pictures/Kashmir/Vinayak-20240630T125914Z-001/Vinayak/DD0714C4-65D8-4C41-85B3-080769F6704E.jpg"
+								},
+								{
+									"key": "coverImage",
+									"type": "file",
+									"src": "/C:/Users/Vinayak/Pictures/Kashmir/Vinayak-20240630T125914Z-001/Vinayak/5A7BFD1B-8D16-4FF7-890E-60DBE34D7A74.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server}}/users/register",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"er@gma.com\",\r\n    \"username\": \"er\",\r\n    \"password\": \"12232\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/users/login?email=er@gma.com&username=er&password=12232",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"login"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "er@gma.com"
+								},
+								{
+									"key": "username",
+									"value": "er"
+								},
+								{
+									"key": "password",
+									"value": "12232"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"er@gma.com\",\r\n    \"username\": \"er\",\r\n    \"password\": \"12232\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/users/logout",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changePass",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/users/changePass",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"changePass"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refreshAccessToken",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/users/refresh-token",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "currentUser",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/users/current-user",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"current-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateAcc",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/users/updateAcc",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"updateAcc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "avatar",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/users/avatar",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"avatar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "coverImage",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/users/coverImage",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"coverImage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Userprofile",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/users/channel/one",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"channel",
+								"one"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "watchHistory",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/users/watchHistory",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"watchHistory"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
